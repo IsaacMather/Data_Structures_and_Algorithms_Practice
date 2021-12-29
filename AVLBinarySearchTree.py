@@ -134,8 +134,28 @@ class AVLBinarySearchTree:
                 self.update_balance(node.parent)
 
 
-    def rotate_left(selfself, ro):
-
+    def rotate_left(self, rotation_root):
+        new_root = rotation_root.right_child
+        rotation_root.right_child = new_root.left_child
+        if new_root.left_child:
+            new_root.left_child.parent = rotation_root
+        new_root.parent = rotation_root.parent
+        if rotation_root.is_root():
+            self._root = new_root
+        else:
+            if rotation_root.is_left_child():
+                rotation_root.parent.left_child = new_root
+            else:
+                rotation_root.parent.right_child = new_root
+        new_root.left_child = rotation_root
+        rotation_root.parent = new_root
+        rotation_root.balance_factor = (
+            rotation_root.balance_factor + 1 - min(new_root.balance_factor, 0)
+        )
+        new_root.balance_factor = (
+            new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
+        )
+        
     def rebalance(self, Null):
         pass
 
