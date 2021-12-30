@@ -156,9 +156,23 @@ class AVLBinarySearchTree:
             new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
         )
         
-    def rebalance(self, Null):
+    def rotate_right(self, rotation_root):
+        print("Rotate right called, which is unitiated")
         pass
 
+    def rebalance(self, node):
+        if node.balance_factor < 0:
+            if node.right_child.balance_factor > 0:
+                self.rotate_right(node.right_child)
+                self.rotate_left(node)
+            else:
+                self.rotate_left(node)
+        elif node.balance_factor > 0:
+            if node.left_child.balance_factor < 0:
+                self.rotate_left(node.left_child)
+                self.rotate_right(node)
+            else:
+                self.rotate_right(node)
 
 
 
